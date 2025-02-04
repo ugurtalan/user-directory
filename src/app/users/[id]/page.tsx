@@ -75,7 +75,7 @@ export default function UserPage({ params }: UserPageProps) {
 
 
   if (!user) {
-    return <div>Yükleniyor...</div>;
+    return <div>yükleniyor...</div>;
   }
 
   return (
