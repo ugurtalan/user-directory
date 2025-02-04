@@ -62,11 +62,9 @@ export default function UserPage({ params }: UserPageProps) {
   if(isFavorite){
    if(user){
     removeFavorite(user.id);
-    setIsFavorite(!isFavorite);
    }
   }else{
   addFavorite(user)
-   setIsFavorite(!isFavorite);
   } 
 
   if(user){
