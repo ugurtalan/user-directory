@@ -19,6 +19,8 @@ export default function UserPage({ params }: UserPageProps) {
   const id = Number(use(params).id);
   const [isFavorite,setIsFavorite] = useState<boolean>(false);
   const {favorites,addFavorite,removeFavorite} = useFavorites();
+  
+  //User listesi alınıyor
   useEffect(() => {
     const getUsers = async () => {
       try {
@@ -31,7 +33,7 @@ export default function UserPage({ params }: UserPageProps) {
     };
     getUsers();
   }, []);
-
+//user belirleniyor
   useEffect(() => {
     if (users.length > 0) {
       const foundUser = users.find((u) => u.id === id);
@@ -44,10 +46,11 @@ export default function UserPage({ params }: UserPageProps) {
     }
   }, [users, id]);
 
-
+    //her favorite dizisi değiştiğinde userın is favorite özelliği güncelleniyor
   useEffect(() => {
     if (user) {
       setIsFavorite(favorites.some((fav: User) => fav.id === user.id));
+      console.log(user.name,": isfavorite ayarlandı");
     }
   }, [favorites, user]);
 
