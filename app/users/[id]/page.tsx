@@ -3,7 +3,7 @@ import { fetchUsers } from "../../actions";
 import { User } from "../../types";
 import { useEffect, useState } from "react";
 import { use } from "react";
-import useFavorites from "../../lib/store"; 
+import useFavorites from "../../../lib/store"; 
 
 type UserPageProps = {
   params: Promise<Params>;
@@ -89,7 +89,7 @@ export default function UserPage({ params }: UserPageProps) {
       <p className="m-2 text-2xl font-bold">Company: {user.company.name}</p>
       <button
           onClick={() => handleClick()} 
-          className="bg-slate-900 text-white w-48 h-16 font-bold rounded-md hover:bg-white hover:text-black transition-all duration-500 ease-in-out"
+          className="bg-slate-800 text-white w-48 h-16 font-bold rounded-md hover:bg-white hover:text-black transition-all duration-500 ease-in-out"
         >
           {isFavorite ? "Favorilerden Çıkar" : "Favorilere Ekle"}
         </button>

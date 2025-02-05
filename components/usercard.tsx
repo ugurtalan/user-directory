@@ -1,4 +1,4 @@
-import { User } from '../types';
+import { User } from '../app/types';
 
 type UserCardProps = {
   user: User;
@@ -14,9 +14,9 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick, onFavorite }) => {
         <h2 className="italic text-gray-700 font-bold">{user.name}
           <button className="absolute right-2 top-1 text-2xl  hover:scale-150 transition-all duration-300 " onClick={onFavorite}>+</button>
         </h2>
-        <p className="opacity-75">Username: {user.username}</p>
-        <p className="opacity-75">Email: {user.email}</p>
-        <p className="opacity-75">Phone: {user.phone}</p>
+        <p >Username: {user.username}</p>
+        <p >Email: {user.email}</p>
+        <p >Phone: {user.phone}</p>
       </div>
       <div className="flex items-center justify-center w-full">
         <button
