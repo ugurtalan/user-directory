@@ -47,7 +47,7 @@ export default function UsersPage() {
         placeholder="İsim 🔍 "
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 border rounded-md mb-4 w-1/3"
+        className=" text-black p-2 border rounded-md mb-4 w-1/3"
       />
     {/*Favoriler ve userTable ı içeren div*/}
       <div className="h-screen flex flex-row min-w-full ">
@@ -56,7 +56,7 @@ export default function UsersPage() {
      <div className="flex flex-col min-h-full">
      <div className="overflow-auto relative flex flex-col item-center mt-10 ml-5 border-8 border-r-4 rounded-md bg-slate-300 h-1/2 w-full max-w-48 min-w-48">
        
-       <h1 className="text-center mt-2">Favoriler</h1>
+       <h1 className="text-center mt-2 text-black font-bold">Favoriler</h1>
        {/*favoriler altındaki çizgi */}
        <div className="w-full h-1 bg-black mt-2 opacity-70"></div>
          <ul>
@@ -76,7 +76,7 @@ export default function UsersPage() {
          
        </div>
        {/*Bütün Listeyi Silme İşlemi*/}
-       <button className="bg-red-900 text-yellow-50  p-3 pb-2 pt-2 rounded-b-lg  ml-5 " onClick={()=>users.forEach((user : User)=>{
+       <button className="bg-red-900 text-yellow-50 font-bold  p-3 pb-2 pt-2 rounded-b-lg  ml-5 " onClick={()=>users.forEach((user : User)=>{
          removeFavorite(user.id);
         })}>Temizle</button>
 

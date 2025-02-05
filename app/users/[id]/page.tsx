@@ -80,13 +80,13 @@ export default function UserPage({ params }: UserPageProps) {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
-      <p className="m-2 text-2xl font-bold">Kullanıcı Adı: {user.name}</p>
-      <p className="m-2 text-2xl font-bold">Username: {user.username}</p>
-      <p className="m-2 text-2xl font-bold">Email: {user.email}</p>
-      <p className="m-2 text-2xl font-bold">Website: {user.website}</p>
-      <p className="m-2 text-2xl font-bold">Phone-number: {user.phone}</p>
-      <p className="m-2 text-2xl font-bold">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
-      <p className="m-2 text-2xl font-bold">Company: {user.company.name}</p>
+      <p className="text-black m-2 text-2xl font-bold">Kullanıcı Adı: {user.name}</p>
+      <p className="text-black m-2 text-2xl font-bold">Username: {user.username}</p>
+      <p className="text-black m-2 text-2xl font-bold">Email: {user.email}</p>
+      <p className="text-black m-2 text-2xl font-bold">Website: {user.website}</p>
+      <p className="text-black m-2 text-2xl font-bold">Phone-number: {user.phone}</p>
+      <p className="text-black m-2 text-2xl font-bold">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
+      <p className="text-black m-2 text-2xl font-bold">Company: {user.company.name}</p>
       <button
           onClick={() => handleClick()} 
           className="bg-slate-800 text-white w-48 h-16 font-bold rounded-md hover:bg-white hover:text-black transition-all duration-500 ease-in-out"

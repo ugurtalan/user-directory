@@ -3,7 +3,6 @@ import { User } from '../types';
 type UserCardProps = {
   user: User;
   onFavorite: () => void;
-  
   onClick: (userId: number) => void;
 }
 
@@ -14,17 +13,16 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick, onFavorite }) => {
         <h2 className="italic text-gray-700 font-bold">{user.name}
           <button className="absolute right-2 top-1 text-2xl  hover:scale-150 transition-all duration-300 " onClick={onFavorite}>+</button>
         </h2>
-        <p >Username: {user.username}</p>
-        <p >Email: {user.email}</p>
-        <p >Phone: {user.phone}</p>
+        <p className="text-black" >Username: {user.username}</p>
+        <p className="text-black" >Email: {user.email}</p>
+        <p className="text-black" >Phone: {user.phone}</p>
       </div>
       <div className="flex items-center justify-center w-full">
         <button
           onClick={() => onClick(user.id)} 
           className="bg-black text-white w-full font-bold absolute bottom-0 opacity-80 hover:opacity-100 transition-all duration-500 ease-in-out 
        hover:translate-y-[-0px]  hover:pt-5 hover:rounded-t-xl transoverflow-hidden">
-        
-          Kullanıcıyı görüntüle
+         Kullanıcıyı görüntüle
         </button>
 
        
