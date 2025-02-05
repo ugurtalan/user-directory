@@ -4,7 +4,7 @@ import { fetchUsers } from '../actions';
 import UserCard from '../../components/usercard';
 import UserTable from '../../components/usertable';
 import { useRouter } from 'next/navigation';
-import { User } from '../types'; 
+import { User } from '../../types'; 
 import useFavorites from '../../lib/store';
 
 export default function UsersPage() {

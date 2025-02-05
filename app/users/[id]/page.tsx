@@ -1,6 +1,6 @@
 "use client";
 import { fetchUsers } from "../../actions";
-import { User } from "../../types";
+import { User } from "../../../types";
 import { useEffect, useState } from "react";
 import { use } from "react";
 import useFavorites from "../../../lib/store"; 

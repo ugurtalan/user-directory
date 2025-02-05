@@ -1,4 +1,4 @@
-import { User } from '../app/types';
+import { User } from '../types';
 
 type UserCardProps = {
   user: User;
