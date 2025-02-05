@@ -39,7 +39,7 @@ export default function UsersPage() {
 
   return (
    // Ana div
-   <div className="flex flex-col justify-center items-center" >
+   <div className="flex flex-col justify-center items-center w-full" >
      
      {/*Arama Çubuğu*/}
      <input 
