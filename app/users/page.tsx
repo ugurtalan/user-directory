@@ -3,14 +3,12 @@ import { useState, useEffect,useMemo } from 'react';
 import { fetchUsers } from '../actions';
 import UserCard from '../../components/usercard';
 import UserTable from '../../components/usertable';
-import { useRouter } from 'next/navigation';
 import { User } from '../../types'; 
 import useFavorites from '../../lib/store';
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]); 
   const [searchQuery, setSearchQuery] = useState(""); 
-  const router = useRouter();
   const { favorites, addFavorite, removeFavorite } = useFavorites(); 
   useEffect(() => {
     const getUsers = async () => {
@@ -22,10 +20,7 @@ export default function UsersPage() {
   }, []);
 
 
-   //dynamic routing
-  const handleClick = (userid: number) => {     
-    router.push(`/users/${userid}`);
-  };
+
 
   //Arama tablosu için filtreleme işlemi
   const filteredUsers = useMemo(() => {
@@ -90,7 +85,6 @@ export default function UsersPage() {
       >
         {filteredUsers.map((user) => (
           <UserCard
-            onClick={() => handleClick(user.id)}
             key={user.id}
             user={user}
             

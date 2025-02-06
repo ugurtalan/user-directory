@@ -61,7 +61,7 @@ export default function UserPage({ params }: UserPageProps) {
  const handleClick = () =>{
   if(isFavorite){
    if(user){
-    removeFavorite(user.id);
+  removeFavorite(user.id);
    }
   }else{
   addFavorite(user)

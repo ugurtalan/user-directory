@@ -1,14 +1,13 @@
 import { User } from '../types';
-
+import Link from 'next/link';
 type UserCardProps = {
   user: User;
   onFavorite: () => void;
-  onClick: (userId: number) => void;
 }
 
-const UserCard: React.FC<UserCardProps> = ({ user, onClick, onFavorite }) => {
+const UserCard: React.FC<UserCardProps> = ({ user, onFavorite }) => {
   return (
-    <div className="user-card border-2 border-black rounded-2xl  overflow-hidden w-60 h-48 bg-white shadow-md relative my-0 mx-4 hover:bg-slate-300 transition-all duration-300 cursor-default">
+    <div className="group user-card border-2 border-black rounded-2xl  overflow-hidden w-60 h-48 bg-white shadow-md relative my-0 mx-4 hover:bg-slate-300  transition-all duration-300 cursor-default">
       <div className="p-4">
         <h2 className="italic text-gray-700 font-bold">{user.name}
           <button className="absolute right-2 top-1 text-2xl  hover:scale-150 transition-all duration-300 " onClick={onFavorite}>+</button>
@@ -18,12 +17,9 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick, onFavorite }) => {
         <p className="text-black" >Phone: {user.phone}</p>
       </div>
       <div className="flex items-center justify-center w-full">
-        <button
-          onClick={() => onClick(user.id)} 
-          className="bg-black text-white w-full font-bold absolute bottom-0 opacity-80 hover:opacity-100 transition-all duration-500 ease-in-out 
-       hover:translate-y-[-0px]  hover:pt-5 hover:rounded-t-xl transoverflow-hidden">
-         Kullanıcıyı görüntüle
-        </button>
+       <Link className=" transform translate-y-10 absolute bottom-0 group-hover:translate-y-[-10] transition-all duration-300 bg-black text-white w-full text-center font-bold" href={`/users/${user.id}`}> 
+       Kullanıcıyı Görüntüle
+       </Link>
 
        
       </div>
@@ -32,3 +28,4 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick, onFavorite }) => {
 };
 
 export default UserCard;
+
