@@ -179,7 +179,19 @@ export default function UsersPage() {
 
 
 
-<button onClick={()=>{
+      </div>
+
+      <div>
+       eklenen kullanıcılar 
+
+        {members&&members.map((member:User)=>(
+          <h1>{member.name}</h1>
+        ))}
+      
+
+      </div>
+      
+      <button  onClick={()=>{
 const group = {
   name: groupName,
   members: members,
@@ -193,19 +205,7 @@ setIsM1Open(false);
 setMembers([]);
 setGroupName('');
 
-}}>gönder</button>
-      </div>
-
-      <div>
-       eklenen kullanıcılar 
-
-        {members&&members.map((member:User)=>(
-          <h1>{member.name}</h1>
-        ))}
-      
-
-      </div>
-      
+}}>Gönder</button>
     </Modal>
 
     <Link href='/users/groups'>
