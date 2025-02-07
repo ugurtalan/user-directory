@@ -6,6 +6,7 @@ type UserCardProps = {
 }
 
 const UserCard: React.FC<UserCardProps> = ({ user, onFavorite }) => {
+  
   return (
     <div className="group user-card border-2 border-black rounded-2xl  overflow-hidden w-60 h-48 bg-white shadow-md relative my-0 mx-4 hover:bg-slate-300  transition-all duration-300 cursor-default">
       <div className="p-4">
@@ -17,6 +18,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onFavorite }) => {
         <p className="text-black" >Phone: {user.phone}</p>
       </div>
       <div className="flex items-center justify-center w-full">
+     
        <Link className=" transform translate-y-10 absolute bottom-0 group-hover:translate-y-[-10] transition-all duration-300 bg-black text-white w-full text-center font-bold" href={`/users/${user.id}`}> 
        Kullanıcıyı Görüntüle
        </Link>

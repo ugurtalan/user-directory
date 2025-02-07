@@ -27,4 +27,9 @@
    name: string;
 }
 
+type Group = {
+  name: string,
+  members: string[],
+}
+
 

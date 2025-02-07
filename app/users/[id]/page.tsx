@@ -1,9 +1,10 @@
 "use client";
 import { fetchUsers } from "../../actions";
-import { User } from "../../../types";
+import { Group, User } from "../../../types";
 import { useEffect, useState } from "react";
 import { use } from "react";
-import useFavorites from "../../../lib/store"; 
+import { useFavorites , useGroups}from "../../../lib/store"; 
+
 
 type UserPageProps = {
   params: Promise<Params>;
@@ -19,6 +20,8 @@ export default function UserPage({ params }: UserPageProps) {
   const id = Number(use(params).id);
   const [isFavorite,setIsFavorite] = useState<boolean>(false);
   const {favorites,addFavorite,removeFavorite} = useFavorites();
+  const {groups,addGroup,removeGroup,updateGroup} = useGroups();
+
   
   //User listesi alınıyor
   useEffect(() => {
@@ -55,8 +58,9 @@ export default function UserPage({ params }: UserPageProps) {
   }, [favorites, user]);
 
 
- 
-
+const memberships = ()=>{
+  return groups.filter((group:Group)=>(group.members.some((member:User)=>(id===member.id))));
+}
 
  const handleClick = () =>{
   if(isFavorite){
@@ -79,7 +83,8 @@ export default function UserPage({ params }: UserPageProps) {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
+    <div suppressHydrationWarning={true}>
+<div className="flex flex-col justify-center items-center min-h-screen">
       <p className="text-black m-2 text-2xl font-bold">Kullanıcı Adı: {user.name}</p>
       <p className="text-black m-2 text-2xl font-bold">Username: {user.username}</p>
       <p className="text-black m-2 text-2xl font-bold">Email: {user.email}</p>
@@ -87,6 +92,11 @@ export default function UserPage({ params }: UserPageProps) {
       <p className="text-black m-2 text-2xl font-bold">Phone-number: {user.phone}</p>
       <p className="text-black m-2 text-2xl font-bold">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
       <p className="text-black m-2 text-2xl font-bold">Company: {user.company.name}</p>
+        <ul className="text-black flex flex-row m-2 text-2xl font-bold"> Memberships: 
+          {memberships().map((group:Group)=>(
+            <li className="text-black m-2 text-2xl font-bold">{group.name} ,</li>
+          ))}
+          </ul>      
       <button
           onClick={() => handleClick()} 
           className="bg-slate-800 text-white w-48 h-16 font-bold rounded-md hover:bg-white hover:text-black transition-all duration-500 ease-in-out"
@@ -94,6 +104,7 @@ export default function UserPage({ params }: UserPageProps) {
           {isFavorite ? "Favorilerden Çıkar" : "Favorilere Ekle"}
         </button>
   
+    </div>
     </div>
   );
 }
