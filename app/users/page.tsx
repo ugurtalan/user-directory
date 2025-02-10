@@ -41,10 +41,10 @@ export default function UsersPage() {
   
 
   return (
-   <div suppressHydrationWarning={true}>
+   <div className="flex flex-row flex-wrap justify-center items-center w-full h-full"  suppressHydrationWarning={true}>
     {/* Ana div*/}
 
-<div className="flex flex-col flex-wrap justify-center items-center w-full" >
+
      
      {/*Arama Çubuğu*/}
      <input 
@@ -54,8 +54,10 @@ export default function UsersPage() {
         onChange={(e) => setSearchQuery(e.target.value)}
         className=" text-black p-2 border rounded-md mb-4 w-1/3"
       />
+
+      
     {/*Favoriler ve userTable ı içeren div*/}
-      <div className="h-screen flex flex-row  overflow-auto ">
+      <div className=" flex flex-row  overflow-auto w-full h-full ">
       
     {/*Favoriler divi*/}
      <div className="flex flex-col min-h-full">
@@ -85,12 +87,13 @@ export default function UsersPage() {
          removeFavorite(user.id);
         })}>Temizle</button>
 
-
+{/*Grup oluşturma butonu*/ }
 <button className="text-white font-bold text-center bg-green-500 ml-5  p-3 pb-2"  onClick={()=>{
       setIsM1Open(true);
     }}>
       Grup Oluştur
     </button>
+    {/*Gruplara giden link */}
 <Link className="text-white font-bold text-center bg-blue-500 ml-5 rounded-b-lg p-3 pb-2" href='/users/groups'>
      Gruplara git
      </Link>
@@ -129,7 +132,7 @@ export default function UsersPage() {
     
   
 
-
+        {/* Grup oluşturma Modali */}
     <Modal isOpen={isM1Open} onClose={()=>{
       setGroupName('');
       setMembers([]);
@@ -158,7 +161,7 @@ export default function UsersPage() {
 </h2>
 
 <div>
-
+  {/*Kullanıcı Ekleme Modali */}
 <Modal isOpen={isM2Open} onClose={()=>{setIsM2Open(false);}}>
     <input type="text" placeholder="İsim" value={searchForMember} onChange={(e)=>{
       setSearchForMember(e.target.value);
@@ -209,8 +212,8 @@ else{console.log(group)
 }}>Gönder</button>
 </Modal>
      
-     </div>
-
+     
+      {/*Grup ismi girilmediğinde uyarı gönderen Modal */}
      <Alert onClose={()=>setAlert(false)} isOpen={alert}></Alert>
 
    </div>
