@@ -27,9 +27,11 @@
    name: string;
 }
 
-type Group = {
+export type Group = {
   name: string,
-  members: string[],
+  members: User[],
+    
+  
 }
 
 

@@ -7,6 +7,7 @@ import { User } from '../../types';
 import { useFavorites , useGroups } from '../../lib/store';
 import Modal from '../../components/Modal';
 import Link from 'next/link';
+import Alert from '../../components/Alert';
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]); 
@@ -17,7 +18,8 @@ export default function UsersPage() {
   const [isM2Open,setIsM2Open] = useState(false);
   const [searchForMember,setSearchForMember] = useState("");
   const [groupName,setGroupName] = useState('');
-  const [members,setMembers] = useState<User[]>([]) ;
+  const [members,setMembers] = useState<User[]>([]);
+  const [alert, setAlert] = useState(false);
   useEffect(() => {
     const getUsers = async () => {
       const fetchedUsers = await fetchUsers();
@@ -26,9 +28,6 @@ export default function UsersPage() {
 
     getUsers();
   }, []);
-
-
-
 
   //Arama tablosu için filtreleme işlemi
   const filteredUsers = (search: string) =>
@@ -45,7 +44,7 @@ export default function UsersPage() {
    <div suppressHydrationWarning={true}>
     {/* Ana div*/}
 
-<div className="flex flex-col justify-center items-center w-full" >
+<div className="flex flex-col flex-wrap justify-center items-center w-full" >
      
      {/*Arama Çubuğu*/}
      <input 
@@ -56,7 +55,7 @@ export default function UsersPage() {
         className=" text-black p-2 border rounded-md mb-4 w-1/3"
       />
     {/*Favoriler ve userTable ı içeren div*/}
-      <div className="h-screen flex flex-row min-w-full ">
+      <div className="h-screen flex flex-row  overflow-auto ">
       
     {/*Favoriler divi*/}
      <div className="flex flex-col min-h-full">
@@ -82,9 +81,19 @@ export default function UsersPage() {
          
        </div>
        {/*Bütün Listeyi Silme İşlemi*/}
-       <button className="bg-red-900 text-yellow-50 font-bold  p-3 pb-2 pt-2 rounded-b-lg  ml-5 " onClick={()=>users.forEach((user : User)=>{
+       <button className="bg-red-900 text-yellow-50 font-bold  p-3 pb-2 pt-2   ml-5 " onClick={()=>users.forEach((user : User)=>{
          removeFavorite(user.id);
         })}>Temizle</button>
+
+
+<button className="text-white font-bold text-center bg-green-500 ml-5  p-3 pb-2"  onClick={()=>{
+      setIsM1Open(true);
+    }}>
+      Grup Oluştur
+    </button>
+<Link className="text-white font-bold text-center bg-blue-500 ml-5 rounded-b-lg p-3 pb-2" href='/users/groups'>
+     Gruplara git
+     </Link>
 
      </div>
       
@@ -106,9 +115,13 @@ export default function UsersPage() {
             
               if (!userExists) {
                 addFavorite(user);
+                console.log(favorites);
               }
             }}
-            
+
+            isFavorite={
+              favorites.some((fav: User) => fav.id === user.id)
+            }            
           />
         ))}
       </UserTable>
@@ -116,11 +129,6 @@ export default function UsersPage() {
     
   
 
-  <button onClick={()=>{
-      setIsM1Open(true);
-    }}>
-      Grup Oluştur
-    </button>
 
     <Modal isOpen={isM1Open} onClose={()=>{
       setGroupName('');
@@ -129,27 +137,29 @@ export default function UsersPage() {
     }} >
       
       <div>
-      <h1>grup oluştur
+      <h1 className="font-bold text-center ">Grup oluştur
         
 </h1>
 
-<h2>Grup İsmi: 
-  <input type="text" placeholder='Grup İsmi' value={groupName}  
+<div className="flex flex-row relative my-2 ">
+<label htmlFor="groupName" className="" >Grup İsmi: 
+</label>
+<input id="groupName" className="absolute right-0 w-2/3 border-2 border-solid border-black rounded-md " type="text" placeholder='' value={groupName}  
   onChange={(e) =>{
     setGroupName(e.target.value);
   }
   }
   />
-</h2>
-<h2>Kullanıcı Ekle
-<button onClick={()=>{
+</div>
+<h2 className="my-3">Kullanıcı Ekle
+<button className="bg-black text-white ml-3 w-8 rounded-md " onClick={()=>{
   setIsM2Open(true);
 }}>+</button>
 </h2>
 
 <div>
 
-<Modal isOpen={isM2Open} onClose={()=>{setIsM2Open(false)}}>
+<Modal isOpen={isM2Open} onClose={()=>{setIsM2Open(false);}}>
     <input type="text" placeholder="İsim" value={searchForMember} onChange={(e)=>{
       setSearchForMember(e.target.value);
     }}/>
@@ -174,48 +184,34 @@ export default function UsersPage() {
 </Modal>
 
 </div>
-
-
-
-
-
       </div>
-
-      <div>
-       eklenen kullanıcılar 
-
+      <div className="bg-slate-300 p-2 rounded-md">
+       Eklenen kullanıcılar :
         {members&&members.map((member:User)=>(
           <h1>{member.name}</h1>
         ))}
-      
-
       </div>
-      
-      <button  onClick={()=>{
+      <button className="bg-green-500 p-3 my-3 rounded-md text-white"  onClick={()=>{
 const group = {
   name: groupName,
   members: members,
 }
-console.log(group)
-addGroup(group);
- 
-console.log(groups);
-
-setIsM1Open(false);
-setMembers([]);
-setGroupName('');
+if(groupName===''||groupName===' '){
+  setAlert(true);
+}
+else{console.log(group)
+  addGroup(group);
+  console.log(groups);
+  setIsM1Open(false);
+  setMembers([]);
+  setGroupName('');}
 
 }}>Gönder</button>
-    </Modal>
+</Modal>
+     
+     </div>
 
-    <Link href='/users/groups'>
-    Gruplara git
-    </Link>
-  
-  
-    
-
-    </div>
+     <Alert onClose={()=>setAlert(false)} isOpen={alert}></Alert>
 
    </div>
    

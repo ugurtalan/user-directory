@@ -62,10 +62,10 @@ useEffect(() => {
 
 
                             {index===selectedIndex&&  <Modal isOpen={isEditOpen} onClose={()=>{setIsEditOpen(false)}}>
-                                  <h1>{group.name}</h1>  
+                                  <h1 className="font-bold ">{group.name}</h1>  
                                   {group.members.map((member,i)=>(
                                 <h3> {member.name} 
-                                <button onClick={()=>{
+                                <button className="ml-3 bg-black text-white rounded-full w-6 mb-2" onClick={()=>{
                                    const newGroup={
                                     ...group,
                                     members: group.members.filter((m:User)=>(m.id!==member.id))
@@ -94,7 +94,7 @@ useEffect(() => {
                         
                         <h2>{member.name}</h2>
                            
-                           <button
+                           <button className="text-white font-bold rounded-full bg-black w-6"
                               onClick={() => {
 
                               const newGroup={
@@ -118,10 +118,10 @@ useEffect(() => {
                      
                        
                   </div>
-                  <div className="bg-gray-500 flex flex-row rounded-lg w-1/6 overflow-hidden justify-center">
-                    <button className="bg-red-300 flex-1  " onClick={()=>{removeGroup(group)}}>Sil</button>
-                       <button className="p-2 bg-blue-300 flex-1" onClick={()=>{setIsAddOpen(true); setIsEditOpen(true)}}>Ekle</button>
-                       <button className="p-2 bg-green-300" onClick={()=>{setSelectedIndex(index);setIsEditOpen(true)}}>Editle</button>  {/*modal açılacak burda da*/}</div>
+                  <div className=" bg-gray-500 flex flex-row rounded-lg w-1/5 overflow-hidden justify-center">
+                    <button className="bg-red-300 flex-1 text-white font-bold p-2 pl-4  " onClick={()=>{removeGroup(group)}}>Grubu Sil</button>
+                       <button className="p-2 bg-blue-300 flex-1  text-white font-bold " onClick={()=>{setIsAddOpen(true); setSelectedIndex(index)}}>Ekle</button>
+                       <button className="p-2 bg-green-300   text-white font-bold " onClick={()=>{setSelectedIndex(index);setIsEditOpen(true)}}>Editle</button>  {/*modal açılacak burda da*/}</div>
                   </div>
                     
                 ))}

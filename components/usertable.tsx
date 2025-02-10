@@ -6,10 +6,10 @@ interface UserTableProps{
 
  const UserTable: React.FC<UserTableProps> = ({children})=>{
     return(
-        <div className=" flex flex-wrap  py-10 space-y-1 min-w-full ">
+        <div className=" flex flex-row flex-wrap flex-shrink py-10   ">
 
 {children}
-        </div>
+        </div> 
 
     );
 
