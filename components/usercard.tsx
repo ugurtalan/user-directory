@@ -19,7 +19,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onFavorite,isFavorite }) => {
         <p className="text-black" >Username: {user.username}</p>
         <p className="text-black" >Email: {user.email}</p>
         <p className="text-black" >Phone: {user.phone}</p>
-        {isFavorite && <FontAwesomeIcon  icon={faHeart}/>}
+        {isFavorite && <FontAwesomeIcon icon={faHeart} className="text-red-600" />}
       </div>
       
       
