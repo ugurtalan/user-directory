@@ -68,7 +68,7 @@ const memberships = ()=>{
   removeFavorite(user.id);
    }
   }else{
-  addFavorite(user)
+  user&&addFavorite(user);
   } 
 
   if(user){
@@ -93,8 +93,8 @@ const memberships = ()=>{
       <p className="text-black m-2 text-2xl font-bold">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
       <p className="text-black m-2 text-2xl font-bold">Company: {user.company.name}</p>
         <ul className="text-black flex flex-row m-2 text-2xl font-bold"> Memberships: 
-          {memberships().map((group:Group)=>(
-            <li className="text-black m-2 text-2xl font-bold">{group.name} ,</li>
+          {memberships().map((group:Group,index:number)=>(
+            <li key={index} className="text-black m-2 text-2xl font-bold">{group.name} ,</li>
           ))}
           </ul>      
       <button

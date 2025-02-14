@@ -1,24 +1,20 @@
 'use client';
-import { useState, useEffect,useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchUsers } from '../actions';
 import UserCard from '../../components/usercard';
 import UserTable from '../../components/usertable';
 import { User } from '../../types'; 
-import { useFavorites , useGroups } from '../../lib/store';
-import Modal from '../../components/Modal';
+import { useFavorites  } from '../../lib/store';
 import Link from 'next/link';
 import Alert from '../../components/Alert';
+import GroupCreate from '../../components/groupCreate';
+import { filteredUsers } from '../../lib/utils';
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]); 
   const [searchQuery, setSearchQuery] = useState(""); 
-  const { groups, addGroup, removeGroup } = useGroups(); 
   const { favorites, addFavorite, removeFavorite } = useFavorites(); 
   const [isM1Open,setIsM1Open] = useState(false);
-  const [isM2Open,setIsM2Open] = useState(false);
-  const [searchForMember,setSearchForMember] = useState("");
-  const [groupName,setGroupName] = useState('');
-  const [members,setMembers] = useState<User[]>([]);
   const [alert, setAlert] = useState(false);
   useEffect(() => {
     const getUsers = async () => {
@@ -30,12 +26,7 @@ export default function UsersPage() {
   }, []);
 
   //Arama tablosu için filtreleme işlemi
-  const filteredUsers = (search: string) =>
-    useMemo(() => {
-      return users.filter((user) =>
-        user.name.toLowerCase().startsWith(search.toLowerCase())
-      );
-    }, [users, search]);
+
   
   
   
@@ -97,31 +88,22 @@ export default function UsersPage() {
 <Link className="text-white font-bold text-center bg-blue-500 ml-5 rounded-b-lg p-3 pb-2" href='/users/groups'>
      Gruplara git
      </Link>
-
      </div>
-      
-
-
        {/*userTable Alanı*/}
       <UserTable
-      
       >
-        {filteredUsers(searchQuery).map((user) => (
+        {filteredUsers(searchQuery,users).map((user) => (
           <UserCard
             key={user.id}
             user={user}
-            
             //UserCard üzerinde ekleme işlemi
-            
             onFavorite={() => {
               const userExists = favorites.some((fav: User) => fav.id === user.id);
-            
               if (!userExists) {
                 addFavorite(user);
                 console.log(favorites);
               }
             }}
-
             isFavorite={
               favorites.some((fav: User) => fav.id === user.id)
             }            
@@ -129,95 +111,9 @@ export default function UsersPage() {
         ))}
       </UserTable>
     </div>
-    
-  
-
-        {/* Grup oluşturma Modali */}
-    <Modal isOpen={isM1Open} onClose={()=>{
-      setGroupName('');
-      setMembers([]);
-      setIsM1Open(false);
-    }} >
-      
-      <div>
-      <h1 className="font-bold text-center ">Grup oluştur
-        
-</h1>
-
-<div className="flex flex-row relative my-2 ">
-<label htmlFor="groupName" className="" >Grup İsmi: 
-</label>
-<input id="groupName" className="absolute right-0 w-2/3 border-2 border-solid border-black rounded-md " type="text" placeholder='' value={groupName}  
-  onChange={(e) =>{
-    setGroupName(e.target.value);
-  }
-  }
-  />
-</div>
-<h2 className="my-3">Kullanıcı Ekle
-<button className="bg-black text-white ml-3 w-8 rounded-md " onClick={()=>{
-  setIsM2Open(true);
-}}>+</button>
-</h2>
-
-<div>
-  {/*Kullanıcı Ekleme Modali */}
-<Modal isOpen={isM2Open} onClose={()=>{setIsM2Open(false);}}>
-    <input type="text" placeholder="İsim" value={searchForMember} onChange={(e)=>{
-      setSearchForMember(e.target.value);
-    }}/>
-
-{(filteredUsers(searchForMember) || []).map((member) => (
-  !members.some((m)=>(m.id===member.id))&&
-  <h3 key={member.id}>
-    {member.name}
-    <button
-      onClick={() => {
-        setMembers([...members, member]);
-        console.log(member);
-        console.log(members);
-      
-      
-      }}
-    >
-      +
-    </button>
-  </h3>
-))}
-</Modal>
-
-</div>
-      </div>
-      <div className="bg-slate-300 p-2 rounded-md">
-       Eklenen kullanıcılar :
-        {members&&members.map((member:User)=>(
-          <h1>{member.name}</h1>
-        ))}
-      </div>
-      <button className="bg-green-500 p-3 my-3 rounded-md text-white"  onClick={()=>{
-const group = {
-  name: groupName,
-  members: members,
-}
-if(groupName===''||groupName===' '){
-  setAlert(true);
-}
-else{console.log(group)
-  addGroup(group);
-  console.log(groups);
-  setIsM1Open(false);
-  setMembers([]);
-  setGroupName('');}
-
-}}>Gönder</button>
-</Modal>
-     
-     
+    <GroupCreate isOpen={isM1Open} setIsM1Open={setIsM1Open} users={users} setAlert={setAlert}></GroupCreate>
       {/*Grup ismi girilmediğinde uyarı gönderen Modal */}
      <Alert onClose={()=>setAlert(false)} isOpen={alert}></Alert>
-
    </div>
-   
-   
   );
 }
