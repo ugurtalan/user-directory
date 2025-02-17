@@ -20,7 +20,7 @@ export default function UserPage({ params }: UserPageProps) {
   const id = Number(use(params).id);
   const [isFavorite,setIsFavorite] = useState<boolean>(false);
   const {favorites,addFavorite,removeFavorite} = useFavorites();
-  const {groups,addGroup,removeGroup,updateGroup} = useGroups();
+  const {groups} = useGroups();
 
   
   //User listesi alınıyor
