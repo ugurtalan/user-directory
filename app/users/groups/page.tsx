@@ -1,19 +1,15 @@
 "use client";
 import { useGroups } from "../../../lib/store";
-import { Group, User,groupStore } from "../../../types";
-import Modal from "../../../components/Modal";
+import { Group, User } from "../../../types";
 import { useState } from "react";
 import { useEffect } from "react";
 import { fetchUsers } from "../../actions";
+import UserAdd from "../../../components/GroupPage/UserAdd";
+import UserDelete from "../../../components/GroupPage/UserDelete";
 const GroupPage = () =>{
 
-  interface groupStore {
-    groups: Group[];
-    addGroup: (group: Group) => void;
-    removeGroup: (id: string) => void;
-    updateGroup: (group: Group) => void;
-  }
-  const {groups, addGroup, removeGroup, updateGroup} = useGroups();
+ 
+  const {groups, removeGroup} = useGroups();
 
 const [isEditOpen,setIsEditOpen] = useState(false);
 const [isAddOpen,setIsAddOpen] = useState(false);
@@ -47,47 +43,15 @@ useEffect(() => {
                             ))}
                     </ul>
                     {/*Gruptan eleman çıkarmak için açılan modal */}
-                            {index===selectedIndex&&  <Modal isOpen={isEditOpen} onClose={()=>{setIsEditOpen(false)}}>
-                                  <h1 className="font-bold ">{group.name}</h1>  
-                                  {group.members.map((member,i)=>(
-                                <h3 key={i}> {member.name} 
-                                <button className="ml-3 bg-black text-white rounded-full w-6 mb-2" onClick={()=>{
-                                   const newGroup={
-                                    ...group,
-                                    members: group.members.filter((m:User)=>(m.id!==member.id))
-                                   }
-                                   updateGroup(selectedIndex,newGroup);
-                                   console.log(groups); 
-                                }} >X</button>
-                                </h3>
-                            ))}
-                        </Modal>}
+                        {index===selectedIndex&&<UserDelete isOpen={isEditOpen} onClose={()=>setIsEditOpen(false)} selectedIndex={selectedIndex} group={group}></UserDelete> }
                         {/*Gruba eleman ekleme işlemi için açılan modal */}
-                       {selectedIndex===index&& <Modal isOpen={isAddOpen} onClose={()=>{setIsAddOpen(false)}}>
-                        {(users).map((member,i) => (
-                          !group.members.some((a)=>(a.id===member.id))&&
-                           <div key={i} >
-                        <h2>{member.name}</h2>
-                           <button className="text-white font-bold rounded-full bg-black w-6"
-                              onClick={() => {
-                              const newGroup={
-                                ...group,
-                                members: [...group.members,member]
-                               }
-                               console.log(newGroup);
-                               updateGroup(selectedIndex,newGroup);
-                              }}
-                            >
-                              +
-                            </button>
-                           </div>
-                        ))}
-                                                </Modal>}
+                       {selectedIndex===index&&<UserAdd isOpen={isAddOpen} onClose={()=>(setIsAddOpen(false))} users={users} selectedIndex={selectedIndex} group={group}></UserAdd>}
                   </div>
-                  <div className=" bg-gray-500 flex flex-row rounded-lg w-1/5 overflow-hidden justify-center">
-                    <button className="bg-red-300 flex-1 text-white font-bold p-2 pl-4  " onClick={()=>{removeGroup(group)}}>Grubu Sil</button>
-                       <button className="p-2 bg-blue-300 flex-1  text-white font-bold " onClick={()=>{setIsAddOpen(true); setSelectedIndex(index)}}>Ekle</button>
-                       <button className="p-2 bg-green-300   text-white font-bold " onClick={()=>{setSelectedIndex(index);setIsEditOpen(true)}}>Editle</button>  {/*modal açılacak burda da*/}</div>
+                  <div className=" bg-gray-500 flex flex-row flex-auto  rounded-lg w-1/5 overflow-hidden justify-between">
+                      <button className="bg-red-300  text-white font-bold p-2 flex-1 transform transition-all duration-1000  " onClick={()=>{removeGroup(group)}}><span className="hidden sm:inline ">Grubu Sil</span>
+</button>
+                      <button className="p-2 bg-blue-300     text-white font-bold flex-1 transform transition-all duration-1000 " onClick={()=>{setIsAddOpen(true); setSelectedIndex(index)}}><span className="hidden sm:inline ">Ekle</span></button>
+                      <button className="p-2 bg-green-300   text-white font-bold flex-1 transform transition-all duration-1000 " onClick={()=>{setSelectedIndex(index);setIsEditOpen(true)}}><span className="hidden sm:inline ">Editle</span></button>  {/*modal açılacak burda da*/}</div>
                   </div>
                 ))}
                 </div>

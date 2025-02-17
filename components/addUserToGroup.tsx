@@ -2,7 +2,6 @@ import Modal from "./Modal";
 import { User } from "../types";
 import { useState } from "react";
 import { filteredUsers } from "../lib/utils";
-import { Dispatch,SetStateAction } from "react";
 type Props = {
     isOpen:boolean;
     onClose:()=>void;

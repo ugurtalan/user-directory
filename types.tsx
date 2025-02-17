@@ -34,4 +34,11 @@ export type Group = {
   
 }
 
+export type groupStore = {
+  groups: Group[],
+  addGroup:(group:Group)=>void,
+  removeGroup:(group:Group)=>void,
+  updateGroup:(group:Group)=>void,
+}
+
 
