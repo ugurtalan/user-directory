@@ -15,7 +15,7 @@ type Props = {
         return(
 
             <Modal isOpen={isOpen} onClose={onClose}>
-  <input className="border-2 rounded-sm border-slate-800" type="text" placeholder="İsim" value={searchForMember} onChange={(e)=>{
+  <input className="border-2 rounded-sm border-slate-800" type="text" placeholder="ara..." value={searchForMember} onChange={(e)=>{
     setSearchForMember(e.target.value);
   }}/>
 
