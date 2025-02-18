@@ -92,9 +92,10 @@ const memberships = ()=>{
       <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Phone-number: {user.phone}</p>
       <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
       <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Company: {user.company.name}</p>
-        <ul className="text-zinc-500 flex flex-row p-4  hover:bg-slate-300 text-2xl font-bold"> Memberships: 
+        <p className="text-zinc-500 flex flex-row p-4  hover:bg-slate-300 text-2xl font-bold">Memberships:</p>
+        <ul className="text-zinc-500 flex flex-row p-4  hover:bg-slate-300 text-2xl font-bold">  
           {memberships().map((group:Group,index:number)=>(
-            <li key={index} className="text-black m-2 text-2xl font-bold">{group.name} ,</li>
+            <li key={index} className="text-zinc-500 m-2 text-2xl font-bold">{group.name} ,</li>
           ))}
           </ul>      
       <button
