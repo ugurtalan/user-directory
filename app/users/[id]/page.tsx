@@ -84,22 +84,22 @@ const memberships = ()=>{
 
   return (
     <div className="flex justify-center items-center min-h-screen" suppressHydrationWarning={true}>
-<div className="flex-col border-4 border-slate-400 rounded-lg bg-white p-4 bg-w flex justify-start ">
-      <p className="text-zinc-500 m-2 text-2xl font-bold    border-b-1">Kullanıcı Adı: {user.name}</p>
-      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Username: {user.username}</p>
-      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Email: {user.email}</p>
-      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Website: {user.website}</p>
-      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Phone-number: {user.phone}</p>
-      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
-      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Company: {user.company.name}</p>
-        <ul className="text-zinc-500 flex flex-row m-2  text-2xl font-bold"> Memberships: 
+<div className="flex-col border-4 border-slate-400 rounded-lg bg-white  bg-w flex justify-start ">
+      <p className="text-zinc-500 p-4 text-2xl font-bold hover:bg-slate-300    border-b-1">Kullanıcı Adı: {user.name}</p>
+      <p className="text-zinc-500 p-4 text-2xl font-bold hover:bg-slate-300   border-b-1">Username: {user.username}</p>
+      <p className="text-zinc-500 p-4 text-2xl font-bold hover:bg-slate-300   border-b-1">Email: {user.email}</p>
+      <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Website: {user.website}</p>
+      <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Phone-number: {user.phone}</p>
+      <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
+      <p className="text-zinc-500 p-4 text-2xl font-bold  hover:bg-slate-300  border-b-1">Company: {user.company.name}</p>
+        <ul className="text-zinc-500 flex flex-row p-4  hover:bg-slate-300 text-2xl font-bold"> Memberships: 
           {memberships().map((group:Group,index:number)=>(
             <li key={index} className="text-black m-2 text-2xl font-bold">{group.name} ,</li>
           ))}
           </ul>      
       <button
           onClick={() => handleClick()} 
-          className="bg-slate-800 text-white w-48 h-16 font-bold rounded-md hover:bg-white hover:text-black transition-all duration-500 ease-in-out"
+          className="bg-blue-500 text-white w-48 h-16 mx-auto mb-2 mt-2 font-bold rounded-md hover:bg-blue-800  transition-all duration-500 ease-in-out"
         >
           {isFavorite ? "Favorilerden Çıkar" : "Favorilere Ekle"}
         </button>

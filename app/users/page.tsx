@@ -15,6 +15,7 @@ export default function UsersPage() {
   const {favorites, addFavorite, removeFavorite } = useFavorites(); 
   const [isM1Open,setIsM1Open] = useState(false);
   const [alert, setAlert] = useState(false);
+  const [isSearch,setIsSearch] = useState(false);
   useEffect(() => {
     const getUsers = async () => {
       const fetchedUsers = await fetchUsers();
@@ -22,25 +23,27 @@ export default function UsersPage() {
     };
     getUsers();
   }, []);
-  //Arama tablosu için filtreleme işlemi
   return (
+    /* Ana Div */
    <div className="flex flex-row flex-wrap justify-center items-center w-full h-full"  suppressHydrationWarning={true}>
-    {/* Ana div*/}
+  
   
      {/*Arama Çubuğu*/}
-     <h2 className="font-bold mr-3 pb-3">Kullanıcı Ara</h2>
      <input 
         type="text"
-        placeholder="İsim 🔍 "
+        placeholder={isSearch?"İsim 🔍":''}
         value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className=" text-black p-2 border rounded-md mb-4 w-1/3"
+        onChange={isSearch?(e) => setSearchQuery(e.target.value):()=>('')}
+        className={`transition-all duration-300 p-2 rounded-md ${isSearch ? 'w-64' : 'w-16'}`}
       />    
+       {/*Arama çubuğunu açmak  için Buton*/}
+     <button onClick={()=>setIsSearch(!isSearch)} className="font-bold bg-blue-600 m-2 rounded-md text-sm  p-3">Ara</button>
+
     {/*Favoriler ve userTable ı içeren div*/}
       <div className=" flex flex-row  overflow-auto w-full h-full ">   
     {/*Favoriler divi*/}
      <div className="flex flex-col min-h-full ">
-     <div className="overflow-auto relative flex flex-col item-center mt-4 ml-5 border-8 border-r-4 rounded-md bg-white h-1/2 w-full max-w-60 min-w-60">
+     <div className="overflow-auto relative flex flex-col item-center mt-4 ml-5 border-8 border-r-4 shadow-md rounded-t-md bg-white h-1/2 w-full max-w-60 min-w-60">
        
        <h1 className="text-start pl-2  text-2xl  mt-2 text-black font-bold">Favoriler</h1>
        {/*favoriler altındaki çizgi */}
@@ -96,6 +99,7 @@ export default function UsersPage() {
         ))}
       </UserTable>
     </div>
+    {/*Grup oluşturma Modali */}
     <GroupCreate isOpen={isM1Open} setIsM1Open={setIsM1Open} users={users} setAlert={setAlert}></GroupCreate>
       {/*Grup ismi girilmediğinde uyarı gönderen Modal */}
      <Alert onClose={()=>setAlert(false)} isOpen={alert}></Alert>

@@ -10,7 +10,12 @@ module.exports = {
       borderWidth: {
         '1': '1px',  // Yeni border genişliği ekliyoruz
       },
+      minWidth: {
+        '100': '964px' ,
+      }
     },
   },
   plugins: [],
+
+  
 }
