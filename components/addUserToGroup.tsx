@@ -15,15 +15,15 @@ type Props = {
         return(
 
             <Modal isOpen={isOpen} onClose={onClose}>
-  <input type="text" placeholder="İsim" value={searchForMember} onChange={(e)=>{
+  <input className="border-2 rounded-sm border-slate-800" type="text" placeholder="İsim" value={searchForMember} onChange={(e)=>{
     setSearchForMember(e.target.value);
   }}/>
 
 {(filteredUsers(searchForMember,users)).map((member) => (
 !members.some((m)=>(m.id===member.id))&&
-<h3 key={member.id}>
+<h3 className="mt-2 relative" key={member.id}>
   {member.name}
-  <button
+  <button className="absolute right-1 bg-slate-900 text-white rounded-full  w-6 "
     onClick={() => {
       setMember([...members, member]);
       console.log(member);

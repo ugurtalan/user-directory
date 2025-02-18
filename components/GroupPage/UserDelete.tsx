@@ -18,8 +18,8 @@ const UserDelete:React.FC<Props> = ({isOpen,onClose,selectedIndex,group}:Props)=
 <Modal isOpen={isOpen} onClose={onClose}>
                                   <h1 className="font-bold ">{group.name}</h1>  
                                   {group.members.map((member,i)=>(
-                                <h3 key={i}> {member.name} 
-                                <button className="ml-3 bg-black text-white rounded-full w-6 mb-2" onClick={()=>{
+                                <h3 className="mt-2 relative" key={i}> {member.name} 
+                                <button className="absolute right-1 ml-3 bg-black text-white rounded-full w-6 mb-2" onClick={()=>{
                                    const newGroup={
                                     ...group,
                                     members: group.members.filter((m:User)=>(m.id!==member.id))

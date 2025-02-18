@@ -28,6 +28,7 @@ export default function UsersPage() {
     {/* Ana div*/}
   
      {/*Arama Çubuğu*/}
+     <h2 className="font-bold mr-3 pb-3">Kullanıcı Ara</h2>
      <input 
         type="text"
         placeholder="İsim 🔍 "
@@ -38,19 +39,19 @@ export default function UsersPage() {
     {/*Favoriler ve userTable ı içeren div*/}
       <div className=" flex flex-row  overflow-auto w-full h-full ">   
     {/*Favoriler divi*/}
-     <div className="flex flex-col min-h-full">
-     <div className="overflow-auto relative flex flex-col item-center mt-10 ml-5 border-8 border-r-4 rounded-md bg-slate-300 h-1/2 w-full max-w-48 min-w-48">
+     <div className="flex flex-col min-h-full ">
+     <div className="overflow-auto relative flex flex-col item-center mt-4 ml-5 border-8 border-r-4 rounded-md bg-white h-1/2 w-full max-w-60 min-w-60">
        
-       <h1 className="text-center mt-2 text-black font-bold">Favoriler</h1>
+       <h1 className="text-start pl-2  text-2xl  mt-2 text-black font-bold">Favoriler</h1>
        {/*favoriler altındaki çizgi */}
-       <div className="w-full h-1 bg-black mt-2 opacity-70"></div>
+       <div className="w-full h-0.5 bg-slate-600  mt-2 opacity-70"></div>
          <ul>
            {
              favorites.map((user: User) => (
-               <li  className=" relative font-bold bg-neutral-900 text-cyan-50 p-3 py-1 mt-2" key={user.id}>
+               <li  className="border-b-2 border-slate-200 hover:bg-slate-200 relative font-bold text-slate-700 px-1 py-1 " key={user.id}>
                  {user.name} 
                  {/*Favoriler listesi tek tek silme işlemi*/}
-                 <button onClick={() => {
+      <button onClick={() => {
                    removeFavorite(user.id);
                  }} className="text-red-400 absolute right-1 ">X</button>
                </li>
@@ -59,20 +60,20 @@ export default function UsersPage() {
          </ul>     
        </div>
        {/*Bütün Listeyi Silme İşlemi*/}
-       <button className="bg-red-900 text-yellow-50 font-bold  p-3 pb-2 pt-2   ml-5 " onClick={()=>users.forEach((user : User)=>{
+       <button className= "hover:bg-blue-800 bg-blue-700 border-b-2 text-yellow-50 font-bold  p-3 pb-2 pt-2   ml-5 " onClick={()=>users.forEach((user : User)=>{
          removeFavorite(user.id);
         })}>Temizle</button>
-{/*Grup oluşturma butonu*/ }
-<button className="text-white font-bold text-center bg-green-500 ml-5  p-3 pb-2"  onClick={()=>{
-      setIsM1Open(true);
-    }}>
-      Grup Oluştur
-    </button>
+        {/*Grup oluşturma butonu*/ }
+        <button className="hover:bg-blue-800 text-white font-bold text-center border-b-2 bg-blue-700 ml-5  p-3 pb-2"  onClick={()=>{
+       setIsM1Open(true);
+         }}>
+       Grup Oluştur
+        </button>
     {/*Gruplara giden link */}
-<Link className="text-white font-bold text-center bg-blue-500 ml-5 rounded-b-lg p-3 pb-2" href='/users/groups'>
+        <Link className=" hover:bg-blue-800 text-white font-bold text-center bg-blue-700 ml-5 rounded-b-lg p-3 pb-2" href='/users/groups'>
      Gruplara git
-     </Link>
-     </div>
+        </Link>
+        </div>
        {/*userTable Alanı*/}
       <UserTable
       >

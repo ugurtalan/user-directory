@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React  from "react";
 
 interface UserTableProps{
     children : React.ReactNode;
@@ -6,10 +6,11 @@ interface UserTableProps{
 
  const UserTable: React.FC<UserTableProps> = ({children})=>{
     return(
-        <div className=" flex flex-row flex-wrap flex-shrink py-10   ">
+        <div className="grid grid-cols-4 overflow-hidden">
 
 {children}
         </div> 
+
 
     );
 
