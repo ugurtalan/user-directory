@@ -83,16 +83,16 @@ const memberships = ()=>{
   }
 
   return (
-    <div suppressHydrationWarning={true}>
-<div className="flex flex-col justify-center items-center min-h-screen">
-      <p className="text-black m-2 text-2xl font-bold">Kullanıcı Adı: {user.name}</p>
-      <p className="text-black m-2 text-2xl font-bold">Username: {user.username}</p>
-      <p className="text-black m-2 text-2xl font-bold">Email: {user.email}</p>
-      <p className="text-black m-2 text-2xl font-bold">Website: {user.website}</p>
-      <p className="text-black m-2 text-2xl font-bold">Phone-number: {user.phone}</p>
-      <p className="text-black m-2 text-2xl font-bold">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
-      <p className="text-black m-2 text-2xl font-bold">Company: {user.company.name}</p>
-        <ul className="text-black flex flex-row m-2 text-2xl font-bold"> Memberships: 
+    <div className="flex justify-center items-center min-h-screen" suppressHydrationWarning={true}>
+<div className="flex-col border-4 border-slate-400 rounded-lg bg-white p-4 bg-w flex justify-start ">
+      <p className="text-zinc-500 m-2 text-2xl font-bold    border-b-1">Kullanıcı Adı: {user.name}</p>
+      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Username: {user.username}</p>
+      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Email: {user.email}</p>
+      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Website: {user.website}</p>
+      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Phone-number: {user.phone}</p>
+      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Adress: {`${user.address.city} / ${user.address.street}/ ${user.address.suite}`}</p>
+      <p className="text-zinc-500 m-2 text-2xl font-bold   border-b-1">Company: {user.company.name}</p>
+        <ul className="text-zinc-500 flex flex-row m-2  text-2xl font-bold"> Memberships: 
           {memberships().map((group:Group,index:number)=>(
             <li key={index} className="text-black m-2 text-2xl font-bold">{group.name} ,</li>
           ))}

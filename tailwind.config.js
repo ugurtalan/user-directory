@@ -6,7 +6,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      borderWidth: {
+        '1': '1px',  // Yeni border genişliği ekliyoruz
+      },
+    },
   },
   plugins: [],
-};
+}

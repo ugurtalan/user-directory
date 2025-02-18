@@ -27,7 +27,7 @@ useEffect(() => {
         //Ana Div
         <div className="w-full min-h-screen flex flex-col ">
 
-            <h1 className="text-center mt-5 text-2xl ">Gruplar</h1>
+            <h1 className="text-center mt-5 text-2xl  ">Gruplar</h1>
             <hr className="h-2 bg-black w-1/2 rounded-2xl m-auto mt-1 mb-1" 
                 />
             {/*Gruplar Divi*/}
