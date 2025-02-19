@@ -43,23 +43,17 @@ const UserInfoCard = ({ user,groups }: Props) => {
             {tab === "info" && (
                 <div className=" bg-white p-2  ">
                     <h1 className=" p-2 min-w-56 font-bold  ">Name : </h1>
-                    {/* Diğer bilgiler buraya eklenebilir */}
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.name}</p>
                         <h1 className=" p-2 min-w-56 font-bold   ">Username : </h1>
-                    {/* Diğer bilgiler buraya eklenebilir */}
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.username}</p>
 
                         <h1 className=" p-2 min-w-56 font-bold  ">E-mail : </h1>
-                    {/* Diğer bilgiler buraya eklenebilir */}
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.email}</p>
                         <h1 className=" p-2 min-w-56 font-bold  ">Website : </h1>
-                    {/* Diğer bilgiler buraya eklenebilir */}
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.website}</p>
                         <h1 className=" p-2 min-w-56  font-bold ">Phone Number : </h1>
-                    {/* Diğer bilgiler buraya eklenebilir */}
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.phone}</p>
                         <h1 className=" p-2 min-w-56  font-bold ">Adress : </h1>
-                    {/* Diğer bilgiler buraya eklenebilir */}
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.address.city} {user.address.street} {user.address.suite} {user.address.zipcode}</p>  
                         <h1 className=" p-2 min-w-56  font-bold ">Company : </h1>
                         <p className="  bg-slate-400 font-bold p-2 rounded-lg  hover:bg-slate-600 hover:text-slate-200 ">{user.company.name} ({user.company.catchPhrase})</p>  
