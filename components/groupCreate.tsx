@@ -33,10 +33,11 @@ const GroupCreate = ({ isOpen,setIsM1Open,users,setAlert }: Props  ) => {
 <div className="flex flex-row relative my-2 ">
 <label htmlFor="groupName" className="" >Grup İsmi: 
 </label>
-<input id="groupName" className="absolute right-0 w-2/3 border-2 border-solid border-black rounded-md " type="text" placeholder='' value={groupName}  
+<input id="groupName" className="absolute right-0 w-2/3 border-2 border-solid border-black rounded-md " type="text" placeholder='Grup ismi' value={groupName}  
 onChange={(e) =>{
   setGroupName(e.target.value);
 }
+
 }
 />
 </div>

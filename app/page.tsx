@@ -9,6 +9,8 @@ export default function Home() {
       <Link className="border-black border-2 rounded-md p-4 bg-blue-400 font-bold hover:bg-slate-200 transition duration-400 " href="/users">
       Kullanıcıları görüntüle
       </Link>
+
+     
       
 
     </div>

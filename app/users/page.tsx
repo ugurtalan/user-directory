@@ -91,6 +91,9 @@ export default function UsersPage() {
                 addFavorite(user);
                 console.log(favorites);
               }
+              else{
+                removeFavorite(user.id);
+              }
             }}
             isFavorite={
               favorites.some((fav: User) => fav.id === user.id)
