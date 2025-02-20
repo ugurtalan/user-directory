@@ -24,7 +24,11 @@ const UserCard: React.FC<UserCardProps> = ({ user, onFavorite,isFavorite }) => {
       <Image src="/images/osi.jpg" alt="osi" className="shadow-lg shadow-blue-200 rounded-bl-md max-w-20 max-h-16"  width={100} height={60} objectFit='cover' />
         
          </div>
-        {isFavorite && <FontAwesomeIcon icon={faHeart} className="text-red-600  w-fit mx-auto mr-7 size-5 " />}
+         <div className="min-h-8">
+         {isFavorite && <FontAwesomeIcon icon={faHeart} className="text-red-600  w-fit mx-auto mr-7 size-5 " />}
+
+         </div>
+        
 
         <p className="md:mt-5 mb-3 font-normal text-gray-700" >Username: {user.username}</p>
         <p className=" mb-3 font-normal text-gray-700" >Email: {user.email}</p>

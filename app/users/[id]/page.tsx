@@ -3,7 +3,7 @@ import { fetchUsers } from "../../actions";
 import { Group, User } from "../../../types";
 import { useEffect, useState } from "react";
 import { use } from "react";
-import { useFavorites , useGroups}from "../../../lib/store"; 
+import { useFavorites , useGroups, useUsers}from "../../../lib/store"; 
 import UserInfoCard from "../../../components/userInfoCard";
 
 
@@ -23,21 +23,39 @@ export default function UserPage({ params }: UserPageProps) {
   const {favorites,addFavorite,removeFavorite} = useFavorites();
   const {groups} = useGroups();
 
+  const {users_tmp,setUsers_tmp} = useUsers();
+ 
   
-  //User listesi alınıyor
   useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const fetchedUsers = await fetchUsers();
-        setUsers(fetchedUsers);
-
-      } catch (error) {
-        console.error("Kullanıcılar alınırken hata oluştu:", error);
+    console.log(users_tmp.length);
+  
+    const interval = setInterval(() => {
+      if (users_tmp.length > 0) {
+        setUsers(users_tmp);
+        console.log("users_tmp'den aldı");
+        clearInterval(interval); // Veri alınınca interval'i durdur
       }
+    }, 500); // 500ms'de bir kontrol et
+  
+    return () => clearInterval(interval); // Bileşen unmount olursa interval'i temizle
+  }, []);
+  
+
+  useEffect(() => {
+  
+  
+    const getUsers = async () => {
+      const fetchedUsers = await fetchUsers();
+      setUsers(fetchedUsers); 
+      
     };
     getUsers();
-  }, []);
-//user belirleniyor
+
+  console.log("fetchden aldı");
+
+  
+}, []);
+//user belirleniyorW
   useEffect(() => {
     if (users.length > 0) {
       const foundUser = users.find((u) => u.id === id);
@@ -71,6 +89,6 @@ const memberships= ()=>{
   }
 
   return (
-   <UserInfoCard user={user} groups={memberships()} />
+   <UserInfoCard users={users} user={user} groups={memberships()} />
   );
 }

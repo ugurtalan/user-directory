@@ -3,13 +3,42 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { User, Group } from '../types';
 
 // UserStore Arayüzü
-export interface UserStore {
+
+
+
+export interface favStore {
   favorites: User[];
   addFavorite: (user: User) => void;
   removeFavorite: (id: number) => void;
 }
 
-const useFavorites = create<UserStore>()(
+export interface userStore {
+  users_tmp: User[];
+  setUsers_tmp: (users:User[])=>void;
+}
+
+
+const useUsers = create<userStore>()(
+  persist(
+    (set)=>({
+      users_tmp: [],
+      setUsers_tmp: (updatedUsers: User[]) => set((state) => {
+        return { users_tmp: updatedUsers }; // state'e doğru şekilde users'ı güncelliyoruz
+    }),
+    
+
+    }),
+    {
+      name: 'users-storage',
+      storage: createJSONStorage(() => localStorage),
+
+    }
+
+  )
+)
+
+
+const useFavorites = create<favStore>()(
   persist(
     (set) => ({
       favorites: [],
@@ -22,7 +51,7 @@ const useFavorites = create<UserStore>()(
     }),
     {
       name: 'fav-storage', // Local storage için anahtar
-      storage: createJSONStorage(() => sessionStorage), // sessionStorage kullanmak isterseniz
+      storage: createJSONStorage(() => localStorage), // sessionStorage kullanmak isterseniz
     }
   )
 );
@@ -51,9 +80,9 @@ const useGroups = create<GroupStore>()(
     }),
     {
       name: 'group-storage', // Local storage için anahtar
-      storage: createJSONStorage(() => sessionStorage), // sessionStorage kullanmak isterseniz
+      storage: createJSONStorage(() => localStorage), // sessionStorage kullanmak isterseniz
     }
   )
 );
 
-export { useFavorites, useGroups };
+export { useFavorites, useGroups, useUsers};

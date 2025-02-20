@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Alert from '../../components/Alert';
 import GroupCreate from '../../components/groupCreate';
 import { filteredUsers } from '../../lib/utils';
+import { useUsers } from '../../lib/store';
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]); 
   const [searchQuery, setSearchQuery] = useState(""); 
@@ -16,13 +17,45 @@ export default function UsersPage() {
   const [isM1Open,setIsM1Open] = useState(false);
   const [alert, setAlert] = useState(false);
   const [isSearch,setIsSearch] = useState(false);
+  const {users_tmp,setUsers_tmp} = useUsers();
+  console.log("User_tmp Dizisi : ",users_tmp);
+
+  
+  
+
   useEffect(() => {
+  
+  
+    
     const getUsers = async () => {
       const fetchedUsers = await fetchUsers();
       setUsers(fetchedUsers); 
+      
     };
     getUsers();
-  }, []);
+
+  console.log("fetchden aldı");
+
+  
+
+  
+}, []);
+
+
+
+useEffect(() => {
+  
+  if (users_tmp.length > 0) {
+   const getUsers = async ()=>{
+    setUsers(users_tmp);
+    console.log("users_tmp'den aldı");
+    console.log("users",users);
+    console.log("useerstemp",users_tmp)
+   }
+    
+  getUsers();
+  }
+}, [[],users_tmp]);
   return (
     /* Ana Div */
    <div className="flex flex-row flex-wrap justify-center items-center w-full h-full"  suppressHydrationWarning={true}>
