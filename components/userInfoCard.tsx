@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { Group, User } from "../types";
 import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen,faCheck } from "@fortawesome/free-solid-svg-icons";
+
 import { useUsers } from "../lib/store";
+import Alert from "./Alert";
+
 
 type Props = {
     user: User;
@@ -16,28 +19,52 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
     // 'tab' tipini yalnızca "info" veya "groups" olarak belirliyoruz
     const [tab, setTab] = useState<"info" | "groups">("info");
     const [isTabOpen,setIsTabOpen]= useState<boolean>(false);
-    const [isModalOpen,setIsModalOpen]=useState<boolean>(false);
+    const [isEditModalOpen,setIsEditModalOpen]=useState<boolean>(false);
     const [editedUser, setEditedUser] = useState<User>(user);
     const [tempUser, setTempUser] = useState<User>(user); 
     const {users_tmp,setUsers_tmp} = useUsers();
-    
+    const [alertTitle,setAlertTitle] = useState<string>('');
+    const [alertBody,setAlertBody] = useState<string>('');
+    const [isAlertOpen,setIsAlertOpen] = useState<boolean>(false);
     
     useEffect(() => {
         const getUsers = async () => {
-          // Örneğin, 'userId' gibi bir id'yi kontrol edelim
+
       
           const foundUser = users_tmp.find((user_tmp) => user_tmp.id === user.id);
       
           if (foundUser) {
-            // Eğer eşleşen kullanıcı varsa, setEditedUser ile güncelleme yapalım
+           
             setEditedUser(foundUser);
+            
           }
         };
       
         getUsers();
-      }, []); // users_tmp değiştiğinde tekrar çalışacak
+      }, [[users_tmp],[]]); 
       
+
+      useEffect(() => {
+        const getUsers = async () => {
+
+      
+          const foundUser = users_tmp.find((user_tmp) => user_tmp.id === user.id);
+      
+          if (foundUser) {
+           
+            setTempUser(foundUser);
+            
+          }
+        };
+      
+        getUsers();
+      }, []); 
+      
+
+
+
     
+      
 
     const handleTabChange = (newTab: "info" | "groups") => {
         setTab(newTab);
@@ -50,18 +77,16 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
         }));
     };
     
-    // Butona basıldığında değişiklikleri kaydet
+   
     const handleClick = (field: "name" | "username") => {
-       
+       console.log('tıklandığı an tempuser : ' , tempUser);
         setUsers_tmp(users);
-        setEditedUser((prevUser) => ({
-            ...prevUser,
-            [field]: tempUser[field], // Sadece butona basıldığında kaydediliyor
-        }));
+     
+        console.log('editlendikten sonra edited user : ', editedUser);
         const updatedUsers = users_tmp.map((user) => 
-            user.id === editedUser.id 
-                ? { ...user, [field]: editedUser[field] } // Eğer user id'si eşleşiyorsa, güncelle
-                : user // Eşleşmezse olduğu gibi bırak
+            user.id === tempUser.id 
+                ? { ...user, [field]: tempUser[field] } 
+                : user 
 
         );
         console.log(tempUser);
@@ -71,6 +96,9 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
         
         // Güncellenmiş kullanıcıları setUsers_tmp'ye gönder
         setUsers_tmp(updatedUsers);
+        console.log('edited users : ',editedUser);
+        console.log('temp users : ',editedUser);
+
         
 
 
@@ -89,7 +117,7 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
                 setIsTabOpen(!isTabOpen);
             }} className={`rounded-full text-zinc-200  min-w-20 min-h-12 mb-4 ${isTabOpen?'bg-red-600':'bg-blue-600'}`}>{`${isTabOpen?'KAPAT':'AÇ'}`}</button>
                 <button  className="rounded-full text-zinc-200  min-w-10 h-12 ml-4 mb-4 bg-blue-600" onClick={
-                    ()=>{setIsModalOpen(true)}
+                    ()=>{setIsEditModalOpen(true)}
                 }>
                     <FontAwesomeIcon icon={faPen}/>{}
                 </button>
@@ -97,9 +125,9 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
                 
            
             </div>
-            <Modal isOpen={isModalOpen} onClose={()=>{setIsModalOpen(false);}}>
-            <div className="flex flex-row lg:w-full justify-between mt-2">
-    <label className="text-sm min-w-16 mr-3 lg:text-lg pt-1">Name </label>
+            <Modal isOpen={isEditModalOpen} onClose={()=>{setIsEditModalOpen(false);}}>
+            <div className="flex flex-row lg:w-full justify-between mt-4">
+    <label className="text-sm min-w-16 mr-3 lg:text-lg pt-1 mt-2">Name </label>
     <input
         id="name"
         className=" bg-slate-200 rounded-md max-w-44 lg:min-w-72 p-2"
@@ -109,11 +137,19 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
         placeholder={editedUser.name}
         onChange={(e)=>{handleInputChange('name',e.target.value )}}
     />
-    <button onClick={() => {handleClick('name')}} className="rounded-full ml-3 text-zinc-200 text-sm min-w-5 h-6 mb-4 bg-blue-600">!</button>
+    <button onClick={() => {
+        handleClick('name');
+        setAlertTitle('Bilgilendirme');
+        setAlertBody(`Yeni isim ${tempUser.name} olarak ayarlandı.`);
+        if(!(editedUser.name===tempUser.name)){setIsAlertOpen(true);}
+
+    }} className="rounded-full ml-3 text-zinc-200 text-sm min-w-6 h-6 mb-4 mt-2 bg-blue-600 ">
+        <FontAwesomeIcon icon={faCheck}/>{}
+    </button>
 </div>
 
-<div className="flex flex-row pt-2 lg:w-full justify-between">
-    <label className="text-sm min-w-16 mr-3 lg:text-lg pt-1">Username </label>
+<div className="flex flex-row pt-2 lg:w-full justify-between ">
+    <label  className="text-sm min-w-16 mr-3 lg:text-lg pt-1 mt-2">Username </label>
     <input
         id="username"
         className="bg-slate-200 rounded-md max-w-44 lg:min-w-72 p-2"
@@ -125,7 +161,18 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
 
         
     />
-    <button onClick={() => {handleClick('username')}} className="rounded-full ml-3 text-zinc-200 text-sm min-w-5 h-6 mb-4 bg-blue-600">!</button>
+    <button onClick={() => {
+        handleClick('username');
+        setAlertTitle('Bilgilendirme');
+        setAlertBody(`Yeni kullanıcı adı ${tempUser.username} olarak ayarlandı.`);
+        console.log('temp user : ',tempUser);
+        console.log('edited user : ',editedUser);
+        if(!(editedUser.username===tempUser.username)){setIsAlertOpen(true);}
+        
+        
+        }} className="rounded-full ml-3 text-zinc-200 text-sm min-w-6 h-6 mb-4 mt-2 bg-blue-600">
+            <FontAwesomeIcon icon={faCheck}/>{}
+        </button>
 </div>
 
 
@@ -133,7 +180,7 @@ const UserInfoCard = ({ user,groups,users }: Props) => {
 
                
 
-               
+               <Alert isOpen={isAlertOpen} onClose={()=>{setIsAlertOpen(false)}} title={alertTitle} alert={alertBody}></Alert>
 
             </Modal>
            <div className={`transition-all ease-in-out duration-300 bg-white rounded-xl shadow-xl shadow-gray-900 overflow-hidden min-w-userinfocard ${isTabOpen ? 'max-h-userinfocard' : 'max-h-10'}`}>

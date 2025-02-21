@@ -1,11 +1,12 @@
 "use client";
-import { useGroups } from "../../../lib/store";
+import { useGroups, useUsers } from "../../../lib/store";
 import { Group, User } from "../../../types";
 import { useState } from "react";
 import { useEffect } from "react";
 import { fetchUsers } from "../../actions";
 import UserAdd from "../../../components/GroupPage/UserAdd";
 import UserDelete from "../../../components/GroupPage/UserDelete";
+
 const GroupPage = () =>{
 
  
@@ -14,15 +15,42 @@ const GroupPage = () =>{
 const [isEditOpen,setIsEditOpen] = useState(false);
 const [isAddOpen,setIsAddOpen] = useState(false);
 const [users,setUsers] = useState<User[]>([])
+const {users_tmp,setUsers_tmp} = useUsers();
 const [selectedIndex,setSelectedIndex]=useState<Number>();
 console.log(groups);
 useEffect(() => {
-    const getUsers = async () => {
-      const fetchedUsers = await fetchUsers();
-      setUsers(fetchedUsers); 
-    };
-    getUsers();
-  }, []);
+  
+  
+    
+  const getUsers = async () => {
+    const fetchedUsers = await fetchUsers();
+    setUsers(fetchedUsers); 
+    
+  };
+  getUsers();
+
+console.log("fetchden aldı");
+
+
+
+
+}, []);
+
+
+
+useEffect(() => {
+
+if (users_tmp.length > 0) {
+ const getUsers = async ()=>{
+  setUsers(users_tmp);
+  console.log("users_tmp'den aldı");
+  console.log("users",users);
+  console.log("useerstemp",users_tmp)
+ }
+  
+getUsers();
+}
+}, [[],users_tmp]);
   if(groups.length===0){
    /*Grup oluşturulmadığında Gönderilecek uyarı */
     return(

@@ -2,14 +2,16 @@ import Modal from "./Modal"
 type AlertProps = {
     isOpen : boolean,
     onClose : ()=>void,
+    title : string,
+    alert : string,
 };
 
-const Alert = ({ isOpen, onClose }: AlertProps) => {
+const Alert = ({ isOpen, onClose, title, alert }: AlertProps) => {
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
         <div className="p-4">
-          <h2 className="text-lg">Uyarı Mesajı</h2>
-          <p>Grup ismi boş bırakılamaz.</p>
+          <h2 className="text-lg">{title}</h2>
+          <p>{alert}</p>
           <div className="mt-4 flex justify-end">
             <button
               onClick={onClose}

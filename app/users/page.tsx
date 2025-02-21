@@ -117,6 +117,7 @@ useEffect(() => {
           <UserCard
             key={user.id}
             user={user}
+            users={users}
             //UserCard üzerinde ekleme işlemi
             onFavorite={() => {
               const userExists = favorites.some((fav: User) => fav.id === user.id);
@@ -138,7 +139,7 @@ useEffect(() => {
     {/*Grup oluşturma Modali */}
     <GroupCreate isOpen={isM1Open} setIsM1Open={setIsM1Open} users={users} setAlert={setAlert}></GroupCreate>
       {/*Grup ismi girilmediğinde uyarı gönderen Modal */}
-     <Alert onClose={()=>setAlert(false)} isOpen={alert}></Alert>
+     <Alert title='Uyarı' alert='Grup ismi boş bırakılamaz.' onClose={()=>setAlert(false)} isOpen={alert}></Alert>
    </div>
   );
 }
