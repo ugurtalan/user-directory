@@ -28,7 +28,7 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
     getUsers();
   }, []);
 
-  const handleInputChange = (field: "username" | "email" | "phone", value: string) => {
+  const handleInputChange = (field: "name"|"username" | "email" | "phone", value: string) => {
     setTempUser((prevUser) => ({
       ...prevUser,
       [field]: value,
@@ -49,7 +49,7 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
   };
 
   return (
-    <div className={` border-4 max-w-sm max-h-80 p-0 drop-shadow-2xl relative overflow-hidden px-5 $  ${isFavorite ? 'bg-red-400' : isEditOpen ? 'bg-slate-400' : 'bg-white hover:bg-slate-200'}
+    <div className={` border-4 max-w-sm max-h-80 p-0 drop-shadow-2xl relative overflow-hidden px-5  ${isFavorite ? 'bg-red-400' : isEditOpen ? 'bg-slate-400' : 'bg-white hover:bg-slate-200'}
  border-gray-200 rounded-lg shadow-md w-32 sm:w-40 md:w-52 lg:w-80 sm:m-3 h-fit md:h-auto`}>
       <div className="flex flex-col">
         <button
@@ -75,12 +75,28 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
         </div>
         
 {/*EDİTLEME İŞLEMLERİ */}
-        <div className="grid grid-cols-2 p-3 max-h-36  ">
-          <label className=" pt-2 font-normal text-gray-700" htmlFor="username">
+        <div className="grid grid-cols-2 p-3 max-h-36 min-w-60 ">
+          
+        <label className=" pt-2 font-normal text-gray-700 text-sm max-h-8 " htmlFor="name">
+            Phone:
+          </label>
+          <input
+            className={`font-normal text-gray-700 text-sm max-h-8 ${isEditOpen?'bg-white text-gray-700 ':'bg-slate-300 text-gray-100 '} rounded-md border p-1 m-1 min-w-32`}
+            type="text"
+            id="name"
+            disabled={!isEditOpen}
+            value={isEditOpen ? tempUser.name : editedUser.name}
+            onChange={(e) => {
+              handleInputChange("name", e.target.value);
+            }}
+          />
+          
+          
+          <label className=" pt-2 font-normal text-gray-700 text-sm max-h-8" htmlFor="username">
             Username:
           </label>
           <input
-                       className={`font-normal text-gray-700  ${isEditOpen?'bg-white text-gray-700':'bg-slate-300 text-gray-100'} rounded-md border p-1 m-1 min-w-16`}
+                       className={`font-normal text-gray-700 text-sm max-h-8  ${isEditOpen?'bg-white text-gray-700':'bg-slate-300 text-gray-100'} rounded-md border p-1 m-1 min-w-32`}
 
             type="text"
             id="username"
@@ -92,11 +108,11 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
           />
       
 
-          <label className=" pt-2 font-normal text-gray-700" htmlFor="email">
+          <label className=" pt-2 font-normal text-gray-700 text-sm max-h-8" htmlFor="email">
             Email:
           </label>
           <input
-                        className={`font-normal text-gray-700 ${isEditOpen?'bg-white text-gray-700':'bg-slate-300 text-gray-100'} rounded-md border p-1 m-1 min-w-16`}
+                        className={`font-normal text-gray-700 text-sm max-h-8 ${isEditOpen?'bg-white text-gray-700':'bg-slate-300 text-gray-100'} rounded-md border p-1 m-1 min-w-32`}
 
             type="text"
             id="email"
@@ -108,11 +124,11 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
           />
         
 
-          <label className=" pt-2 font-normal text-gray-700" htmlFor="phone">
+          <label className=" pt-2 font-normal text-gray-700 text-sm max-h-8" htmlFor="phone">
             Phone:
           </label>
           <input
-            className={`font-normal text-gray-700 ${isEditOpen?'bg-white text-gray-700 ':'bg-slate-300 text-gray-100 '} rounded-md border p-1 m-1 min-w-16`}
+            className={`font-normal text-gray-700 text-sm max-h-8 ${isEditOpen?'bg-white text-gray-700 ':'bg-slate-300 text-gray-100 '} rounded-md border p-1 m-1 min-w-32`}
             type="text"
             id="phone"
             disabled={!isEditOpen}
