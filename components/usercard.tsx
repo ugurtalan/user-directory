@@ -22,6 +22,7 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
     phone: false,
   });
 
+  console.log(user.name);
   useEffect(() => {
     // Güncellenmiş kullanıcıları almak için
     const getUsers = async () => {
@@ -43,7 +44,7 @@ const UserCard: React.FC<UserCardProps> = ({ users, user, onFavorite, isFavorite
       const updatedUsers = users_tmp.map((user_tmp) =>
         user_tmp.id === user.id ? { ...user_tmp, [field]: tempUser[field] } : user_tmp
       );
-      setEditedUser(tempUser); // Güncellenen veriyi kaydet
+      setEditedUser(tempUser); 
       setUsers_tmp(updatedUsers);
     }
 
