@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+   "forceConsistentCasingInFileNames": true,
+
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -22,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/users/favorite/page.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/users/favorite/page.js", "components/Modal.tsx", "lib/store.jsx"],
   "exclude": ["node_modules"]
 }

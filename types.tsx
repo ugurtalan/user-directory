@@ -27,4 +27,18 @@
    name: string;
 }
 
+export type Group = {
+  name: string,
+  members: User[],
+    
+  
+}
+
+export type groupStore = {
+  groups: Group[],
+  addGroup:(group:Group)=>void,
+  removeGroup:(group:Group)=>void,
+  updateGroup:(group:Group)=>void,
+}
+
 
