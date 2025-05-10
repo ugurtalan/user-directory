@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://gitlab.teknopar.com.tr/teknopark-projeleri/2025-g-z-bahar-d-nemi-stajyerleri/ugur-talan.git
+	fetch = +refs/*:refs/*
+	mirror = true
